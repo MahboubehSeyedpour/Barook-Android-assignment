@@ -12,14 +12,11 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +26,7 @@ import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -37,8 +35,6 @@ import com.example.barook_android_assignment.presentation.components.TopBarWithA
 import com.example.barook_android_assignment.ui.theme.GrayGoose
 import com.example.barook_android_assignment.ui.theme.LightGray
 import com.example.barook_android_assignment.ui.theme.Typography
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @Composable
 fun DetailsScreen(
@@ -143,7 +139,7 @@ fun Note(
             backgroundColor = Color.Transparent,
             cursorColor = LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
         ),
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
         keyboardActions = KeyboardActions(onDone = {
             keyboardController?.hide()
         }),
