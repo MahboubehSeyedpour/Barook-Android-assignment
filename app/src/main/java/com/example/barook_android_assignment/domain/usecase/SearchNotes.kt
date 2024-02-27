@@ -4,8 +4,8 @@ import com.example.barook_android_assignment.data.db.model.Note
 import com.example.barook_android_assignment.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetNotes(private val repository: NoteRepository) {
-    operator fun invoke(): Flow<List<Note>> {
-        return repository.getNotes()
+class SearchNotes(private val repository: NoteRepository) {
+    operator fun invoke(searchQuery: String): Flow<List<Note>> {
+        return repository.searchNotes(searchQuery)
     }
 }

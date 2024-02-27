@@ -1,21 +1,15 @@
 package com.example.barook_android_assignment.presentation.screens.home
 
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.barook_android_assignment.R
 import com.example.barook_android_assignment.data.db.model.Note
 import com.example.barook_android_assignment.domain.usecase.NoteUseCases
 import com.example.barook_android_assignment.id
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,30 +21,27 @@ class HomeViewModel @Inject constructor(
     var events = MutableSharedFlow<HomeEvents>()
         private set
 
-    private val _items: MutableStateFlow<List<Note>> = MutableStateFlow(emptyList())
-    val items: StateFlow<List<Note>> = _items
-
-    private val _state = mutableStateOf<List<Note>>(listOf())
-    val state: State<List<Note>> = _state
-
-    private var recentDeletedNote: Note? = null
-
-    private var getNotesJob: Job? = null
-
     var noteList by mutableStateOf(listOf<Note>())
+    var searchText by mutableStateOf("")
 
     init {
         getNotes()
     }
 
-    private fun getNotes() {
-
-        viewModelScope.launch {
-            noteUseCases.getNotes().collect {
-                noteList = it
+    fun getNotes() {
+        if (searchText.isBlank() || searchText.isEmpty()) {
+            viewModelScope.launch {
+                noteUseCases.getNotes().collect {
+                    noteList = it
+                }
+            }
+        } else {
+            viewModelScope.launch {
+                noteUseCases.searchNote(searchText).collect {
+                    noteList = it
+                }
             }
         }
-
     }
 
     fun onNoteClicked(id: Long) = viewModelScope.launch {
@@ -67,7 +58,11 @@ class HomeViewModel @Inject constructor(
 //    }
 
     fun onFABClicked() = viewModelScope.launch {
-        events.emit(HomeEvents.NavigateToDetails(id))
+        events.emit(HomeEvents.NavigateToDetails(-1))
+    }
+
+    fun onSearchTextChange(value: String) {
+        searchText = value
     }
 
     fun onDeleteNoteClicked(id: Long) {

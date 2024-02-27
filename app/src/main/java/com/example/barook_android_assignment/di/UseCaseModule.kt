@@ -6,6 +6,7 @@ import com.example.barook_android_assignment.domain.usecase.DeleteNote
 import com.example.barook_android_assignment.domain.usecase.GetNote
 import com.example.barook_android_assignment.domain.usecase.GetNotes
 import com.example.barook_android_assignment.domain.usecase.NoteUseCases
+import com.example.barook_android_assignment.domain.usecase.SearchNotes
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +24,7 @@ object UseCaseModule {
             getNotes = GetNotes(repository),
             deleteNote = DeleteNote(repository),
             addNote = AddNote(repository),
-            getNote = GetNote(repository)
+            getNote = GetNote(repository),
+            searchNote = SearchNotes(repository)
         )
 }

@@ -14,6 +14,10 @@ class NoteRepositoryImpl @Inject constructor(
             return db.getNoteDao().getNotes()
     }
 
+    override fun searchNotes(searchQuery: String): Flow<List<Note>> {
+        return db.getNoteDao().searchNotes(searchQuery)
+    }
+
     override suspend fun getNoteById(id: Long): Note {
         return db.getNoteDao().getNoteById(id)
     }

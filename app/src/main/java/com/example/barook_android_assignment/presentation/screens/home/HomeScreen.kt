@@ -93,11 +93,11 @@ fun HomeScreen(
         ) {
             SearchBar(
                 modifier = Modifier,
-                query = "",
+                query = viewModel.searchText,
                 shape = RoundedCornerShape(10.dp),
                 hint = stringResource(id = R.string.search_bar_placeholder),
-                onTextChanged = { },
-                onDone = { }
+                onTextChanged = { value -> viewModel.onSearchTextChange(value) },
+                onDone = { viewModel.getNotes() }
             )
 
             Spacer(modifier = Modifier.height(20.dp))
