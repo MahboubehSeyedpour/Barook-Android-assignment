@@ -79,8 +79,6 @@ fun DetailsScreen(
                     hint = stringResource(id = R.string.new_note_title),
                     keyboardController
                 )
-
-
             }
 
 
