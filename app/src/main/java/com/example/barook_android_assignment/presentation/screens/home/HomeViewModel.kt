@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.barook_android_assignment.data.db.model.Note
 import com.example.barook_android_assignment.domain.usecase.NoteUseCases
-import com.example.barook_android_assignment.id
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch

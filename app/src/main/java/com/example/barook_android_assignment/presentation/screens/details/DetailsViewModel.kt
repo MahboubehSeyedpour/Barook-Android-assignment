@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.barook_android_assignment.data.db.model.Note
 import com.example.barook_android_assignment.domain.usecase.NoteUseCases
-import com.example.barook_android_assignment.id
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,8 +55,8 @@ class DetailsViewModel @Inject constructor(
         if ((title.isNotBlank() && title.isNotEmpty()) || (desc.isNotEmpty() && desc.isNotBlank())) {
             viewModelScope.launch(Dispatchers.IO) {
                 noteUseCases.addNote(
-                    com.example.barook_android_assignment.data.db.model.Note(
-                        id = note?.id ?: id++,
+                    Note(
+                        id = note?.id ?: 0,
                         title = title,
                         content = desc,
                         colorId = 0
